@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Fujitsu.OrangeAutomation
         [TestCase("Admin", "admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
         public void ValidCredentialTest(string username, string password, string expectedUrl)
         {
+            
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);
             driver.FindElement(By.Id("txtPassword")).SendKeys(password);
             driver.FindElement(By.Id("btnLogin")).Click();
@@ -29,9 +31,16 @@ namespace Fujitsu.OrangeAutomation
             Assert.That(actualUrl, Is.EqualTo(expectedUrl));
         }
 
+        public static object[] InvalidCredentialData()
+        {
+            //("John","John123","Invalid credentials")
+            //("Peter", "Peter123", "Invalid credentials")
+
+        }
+
         [Test]
-        [TestCase("John","John123","Invalid credentials")]
-        [TestCase("Peter", "Peter123", "Invalid credentials")]
+        //[TestCase("John","John123","Invalid credentials")]
+        //[TestCase("Peter", "Peter123", "Invalid credentials")]
         public void InvalidCredentialTest(string username,string password,string expectedError)
         {
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);

@@ -14,6 +14,11 @@ namespace Fujitsu.OrangeAutomation.Base
     {
         protected IWebDriver driver;
 
+        //protected IWebDriver Driver
+        //{
+        //    get { return driver; }
+        //}
+
         [SetUp]
         public void Init()
         {
