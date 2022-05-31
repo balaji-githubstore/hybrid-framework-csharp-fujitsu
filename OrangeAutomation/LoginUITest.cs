@@ -16,6 +16,7 @@ namespace Fujitsu.OrangeAutomation
         [Test]
         public void ValidateTitleTest()
         {
+            
             Assert.That(driver.Title, Is.EqualTo("OrangeHRM"));
         }
     }

@@ -16,11 +16,10 @@ namespace Fujitsu.OrangeAutomation
     public class LoginTest : WebDriverWrapper
     {
         [Test]
-        [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
+        [TestCase("Admin", "admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
         [TestCase("Admin", "admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
         public void ValidCredentialTest(string username, string password, string expectedUrl)
         {
-            
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);
             driver.FindElement(By.Id("txtPassword")).SendKeys(password);
             driver.FindElement(By.Id("btnLogin")).Click();
@@ -53,10 +52,10 @@ namespace Fujitsu.OrangeAutomation
             return main;
         }
 
-        [Test,TestCaseSource(nameof(InvalidCredentialData))]
+        [Test, TestCaseSource(nameof(InvalidCredentialData))]
         //[TestCase("John","John123","Invalid credentials")]
         //[TestCase("Peter", "Peter123", "Invalid credentials")]
-        public void InvalidCredentialTest(string username,string password,string expectedError)
+        public void InvalidCredentialTest(string username, string password, string expectedError)
         {
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);
             driver.FindElement(By.Id("txtPassword")).SendKeys(password);
@@ -66,7 +65,7 @@ namespace Fujitsu.OrangeAutomation
             Assert.That(actualError, Is.EqualTo(expectedError));
         }
 
- 
-        
+
+
     }
 }
