@@ -15,34 +15,34 @@ namespace Fujitsu.OrangeAutomation
     public class LoginTest : WebDriverWrapper
     {
         [Test]
-        public void ValidCredentialTest()
+        [TestCase("Admin","admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
+        [TestCase("Admin", "admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
+        public void ValidCredentialTest(string username, string password, string expectedUrl)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys("Admin");
-            driver.FindElement(By.Id("txtPassword")).SendKeys("admin123");
+            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
+            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
             driver.FindElement(By.Id("btnLogin")).Click();
 
             //wait for page load
 
             string actualUrl = driver.Url;
-            Assert.That(actualUrl, Is.EqualTo("https://opensource-demo.orangehrmlive.com/index.php/dashboard"));
+            Assert.That(actualUrl, Is.EqualTo(expectedUrl));
         }
 
         [Test]
-        public void InvalidCredentialTest()
+        [TestCase("John","John123","Invalid credentials")]
+        [TestCase("Peter", "Peter123", "Invalid credentials")]
+        public void InvalidCredentialTest(string username,string password,string expectedError)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys("john");
-            driver.FindElement(By.Id("txtPassword")).SendKeys("john12345");
+            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
+            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
             driver.FindElement(By.Id("btnLogin")).Click();
 
             string actualError = driver.FindElement(By.Id("spanMessage")).Text;
-            Assert.That(actualError, Is.EqualTo("Invalid credentials"));
+            Assert.That(actualError, Is.EqualTo(expectedError));
         }
 
-        [Test]
-        public void Demo()
-        {
-            Console.WriteLine("Demo");
-        }
+ 
         
     }
 }
