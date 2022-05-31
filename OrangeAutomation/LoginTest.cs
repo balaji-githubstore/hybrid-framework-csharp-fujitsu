@@ -46,7 +46,7 @@ namespace Fujitsu.OrangeAutomation
             driver.Url = "https://opensource-demo.orangehrmlive.com/";
 
             driver.FindElement(By.Id("txtUsername")).SendKeys("john");
-            driver.FindElement(By.Id("txtPassword")).SendKeys("john123");
+            driver.FindElement(By.Id("txtPassword")).SendKeys("john12345");
             driver.FindElement(By.Id("btnLogin")).Click();
 
             string actualError = driver.FindElement(By.Id("spanMessage")).Text;
