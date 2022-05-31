@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Fujitsu.OrangeAutomation.Base;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -11,19 +12,11 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace Fujitsu.OrangeAutomation
 {
-    public class LoginTest
+    public class LoginTest : WebDriverWrapper
     {
         [Test]
         public void ValidCredentialTest()
         {
-            new DriverManager().SetUpDriver(new ChromeConfig(),version:"99.0.4844.51");
-
-            IWebDriver driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait=TimeSpan.FromSeconds(30);
-
-            driver.Url = "https://opensource-demo.orangehrmlive.com/";
-
             driver.FindElement(By.Id("txtUsername")).SendKeys("Admin");
             driver.FindElement(By.Id("txtPassword")).SendKeys("admin123");
             driver.FindElement(By.Id("btnLogin")).Click();
@@ -37,14 +30,6 @@ namespace Fujitsu.OrangeAutomation
         [Test]
         public void InvalidCredentialTest()
         {
-            new DriverManager().SetUpDriver(new ChromeConfig(), version: "99.0.4844.51");
-
-            IWebDriver driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-
-            driver.Url = "https://opensource-demo.orangehrmlive.com/";
-
             driver.FindElement(By.Id("txtUsername")).SendKeys("john");
             driver.FindElement(By.Id("txtPassword")).SendKeys("john12345");
             driver.FindElement(By.Id("btnLogin")).Click();
@@ -53,6 +38,11 @@ namespace Fujitsu.OrangeAutomation
             Assert.That(actualError, Is.EqualTo("Invalid credentials"));
         }
 
+        [Test]
+        public void Demo()
+        {
+            Console.WriteLine("Demo");
+        }
         
     }
 }
