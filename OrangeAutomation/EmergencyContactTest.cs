@@ -46,11 +46,19 @@ namespace Fujitsu.OrangeAutomation
 
             string[] records = expectedRecord.Split(";");
 
+            //Assert.Multiple(() =>
+            //{
+            //    Assert.That(tableData.Contains(records[0]), "Assertion on Contact Name");
+            //    Assert.True(tableData.Contains(records[1]), "Assertion on home phone");
+            //    Assert.True(driver.PageSource.Contains(records[2]), "Assertion on relationship");
+            //});
+
             Assert.Multiple(() =>
             {
-                Assert.That(tableData.Contains(records[0]), "Assertion on Contact Name");
-                Assert.True(tableData.Contains(records[1]), "Assertion on home phone");
-                Assert.True(driver.PageSource.Contains(records[2]), "Assertion on relationship");
+                foreach (string record in records)
+                {
+                    Assert.That(tableData.Contains(record), "Assertion on Added Record");
+                }
             });
         }
     }
