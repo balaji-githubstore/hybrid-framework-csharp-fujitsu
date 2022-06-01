@@ -1,6 +1,4 @@
-﻿using AventStack.ExtentReports;
-using AventStack.ExtentReports.Reporter;
-using ClosedXML.Excel;
+﻿using ClosedXML.Excel;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -13,36 +11,6 @@ namespace OrangeAutomation.SAMPLE
     //demo class - will be deleted //not a part of framework
     internal class DemoTest
     {
-        [Test]
-        public void CreateReport()
-        {
-            //report config - should run only once 
-            ExtentHtmlReporter reporter = new ExtentHtmlReporter(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\Report\index.html");
-            ExtentReports extent = new ExtentReports();
-            extent.AttachReporter(reporter);
-
-            //run before each test method [Setup]
-            var test= extent.CreateTest("TC1");
-
-            test.Log(Status.Info, "running tc1");
-
-            //run after each testcase - log current test pass or fail
-            test.Log(Status.Pass, "test passed");
-
-            //run before each test method [Setup]
-            test = extent.CreateTest("TC2");
-
-            //run after each testcase - log current test pass or fail
-            test.Log(Status.Fail, "test fail");
-
-
-            //should run at the end of all test method
-            extent.Flush();
-        }
-
-
-
-
 
         [Test]
         public void ExcelRead()
