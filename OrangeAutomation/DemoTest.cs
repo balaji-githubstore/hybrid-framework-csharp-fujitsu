@@ -1,15 +1,47 @@
-﻿using OpenQA.Selenium.Chrome;
+﻿using ClosedXML.Excel;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrangeAutomation
+namespace OrangeAutomation.SAMPLE
 {
-    //demo class - will be deleted
+    //demo class - will be deleted //not a part of framework
     internal class DemoTest
     {
+
+        [Test]
+        public void ExcelRead()
+        {
+            using(XLWorkbook book = new XLWorkbook(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx"))
+            {
+                var sheet = book.Worksheet("InvalidCredentialTest");
+                var range = sheet.RangeUsed();
+
+                int rowCount = range.RowCount();
+                int columnCount = range.ColumnCount();
+                Console.WriteLine(rowCount);
+                Console.WriteLine(columnCount);
+
+                string value = range.Cell(1, 1).GetString();
+                Console.WriteLine(value);
+            }
+           
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public static object[] InvalidData()
         {
@@ -26,7 +58,7 @@ namespace OrangeAutomation
             temp3[0] = "mark";
             temp3[1] = "mark123";
 
-            string[] temp4=new string[2];
+            string[] temp4 = new string[2];
             temp4[0] = "paul";
             temp4[1] = "paul123";
 
@@ -40,7 +72,7 @@ namespace OrangeAutomation
             return main;
         }
 
-        [Test,TestCaseSource(nameof(InvalidData))]
+        [Test, TestCaseSource(nameof(InvalidData))]
         public void InvalidTest(string username, string password)
         {
             Console.WriteLine("Invalid" + username + password);
