@@ -31,6 +31,34 @@ namespace Fujitsu.OrangeAutomation.Utilities
             return main;
         }
 
+        public static object[] EmergencyContactData()
+        {
+            object[] set1 = new object[8];
+            set1[0] = "Admin";
+            set1[1] = "admin123";
+            set1[2] = "Sat";
+            set1[3] = "Brother";
+            set1[4] = "3434";
+            set1[5] = "3434";
+            set1[6] = "3434";
+            set1[7] = "Sat;Brother;3434";
+
+            object[] set2 = new object[8];
+            set2[0] = "Admin";
+            set2[1] = "admin123";
+            set2[2] = "John";
+            set2[3] = "Brother";
+            set2[4] = "53434";
+            set2[5] = "53434";
+            set2[6] = "53434";
+            set2[7] = "John;Brother;53434";
+
+            object[] main = new object[2];
+            main[0] = set1;
+            main[1] = set2;
+
+            return main;
+        }
 
 
     }

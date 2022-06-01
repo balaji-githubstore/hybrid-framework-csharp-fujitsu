@@ -1,4 +1,5 @@
 ﻿using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.OrangeAutomation.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace Fujitsu.OrangeAutomation
         /// Admin,admin123,sat,brother,34,43323,4354,expectedvalue
         /// Admin,admin123,prem,father,34,43323,4354,expectedvalue
         /// </summary>
-        [Test]
-        [TestCase("Admin","admin123","Sat","Brother","788","878788","88799889", "Sat;Brother;788")]
+        [Test,TestCaseSource(typeof(DataUtils),nameof(DataUtils.EmergencyContactData))]
+        
         public void AddEmergencyContactTest(string username,string password,string contactName,string relationship,string homePhone,string mobilePhone,string homeTelephone,string expectedRecord)
         {
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);
