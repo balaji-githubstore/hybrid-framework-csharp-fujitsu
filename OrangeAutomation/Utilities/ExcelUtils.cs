@@ -9,11 +9,11 @@ namespace OrangeAutomation.Utilities
 {
     public class ExcelUtils
     {
-        public static object[] GetSheetIntoObjectArray()
+        public static object[] GetSheetIntoObjectArray(string file,string sheetname)
         {
-            using (XLWorkbook book = new XLWorkbook(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx"))
+            using (XLWorkbook book = new XLWorkbook(file))
             {
-                var sheet = book.Worksheet("InvalidCredentialTest");
+                var sheet = book.Worksheet(sheetname);
                 var range = sheet.RangeUsed();
 
                 int rowCount = range.RowCount();
