@@ -26,14 +26,14 @@ namespace OrangeAutomation.SAMPLE
                 Console.WriteLine(columnCount);
 
                 //size is based on numbe of test case - (rowcount-1)
-                object[] main = new object[2]; 
+                object[] main = new object[rowCount-1]; 
 
-                for (int r = 2; r <= 3; r++)
+                for (int r = 2; r <= rowCount; r++)
                 {
-                    //size is based on colcount
-                    object[] set = new object[3];
+                    //size is based on colcount //number of arguments
+                    object[] set = new object[columnCount];
 
-                    for (int c = 1; c <= 3; c++)
+                    for (int c = 1; c <= columnCount; c++)
                     {
                         string value = range.Cell(r, c).GetString();
                         Console.WriteLine(value);
@@ -41,7 +41,7 @@ namespace OrangeAutomation.SAMPLE
                     }
                     main[r-2]=set;
                 }
-
+                //will start at 4:40 PM IST
                 Console.WriteLine();
             }
 
