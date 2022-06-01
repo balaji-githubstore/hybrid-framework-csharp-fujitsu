@@ -24,7 +24,7 @@ namespace Fujitsu.OrangeAutomation.Base
         [SetUp]
         public void Init()
         {
-            string browser = "ff";
+            string browser = "firefox";
 
             switch(browser.ToLower())
             {
@@ -33,6 +33,7 @@ namespace Fujitsu.OrangeAutomation.Base
                     driver = new EdgeDriver();
                     break;
                 case "ff":
+                case "firefox":
                     new DriverManager().SetUpDriver(new FirefoxConfig());
                     driver = new FirefoxDriver();
                     break;
@@ -42,7 +43,6 @@ namespace Fujitsu.OrangeAutomation.Base
                     break;
             }
 
-            
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
