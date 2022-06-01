@@ -16,19 +16,20 @@ namespace Fujitsu.OrangeAutomation
         /// Admin,admin123,prem,father,34,43323,4354,expectedvalue
         /// </summary>
         [Test]
-        public void AddEmergencyContactTest()
+        [TestCase("Admin","admin123","Sat","Brother","788","878788","88799889", "Sat;Brother;788")]
+        public void AddEmergencyContactTest(string username,string password,string contactName,string relationship,string homePhone,string mobilePhone,string homeTelephone,string expectedRecord)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys("Admin");
-            driver.FindElement(By.Id("txtPassword")).SendKeys("admin123");
+            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
+            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
             driver.FindElement(By.Id("btnLogin")).Click();
             driver.FindElement(By.LinkText("My Info")).Click();
             driver.FindElement(By.LinkText("Emergency Contacts")).Click();
             driver.FindElement(By.Id("btnAddContact")).Click();
-            driver.FindElement(By.CssSelector("#emgcontacts_name")).SendKeys("Sat");
-            driver.FindElement(By.CssSelector("#emgcontacts_relationship")).SendKeys("Brother");
-            driver.FindElement(By.CssSelector("#emgcontacts_homePhone")).SendKeys("7878");
-            driver.FindElement(By.CssSelector("#emgcontacts_mobilePhone")).SendKeys("23333");
-            driver.FindElement(By.CssSelector("#emgcontacts_workPhone")).SendKeys("22233233");
+            driver.FindElement(By.CssSelector("#emgcontacts_name")).SendKeys(contactName);
+            driver.FindElement(By.CssSelector("#emgcontacts_relationship")).SendKeys(relationship);
+            driver.FindElement(By.CssSelector("#emgcontacts_homePhone")).SendKeys(homePhone);
+            driver.FindElement(By.CssSelector("#emgcontacts_mobilePhone")).SendKeys(homeTelephone);
+            driver.FindElement(By.CssSelector("#emgcontacts_workPhone")).SendKeys(mobilePhone);
             driver.FindElement(By.Id("btnSaveEContact")).Click();
             //assert the added record in the current page or table 
 
@@ -37,9 +38,18 @@ namespace Fujitsu.OrangeAutomation
 
             Assert.Multiple(() =>
             {
-                Assert.That(tableData.Contains("Sat"), "Assertion on Contact Name");
-                Assert.True(tableData.Contains("7878"), "Assertion on home phone");
-                Assert.True(driver.PageSource.Contains("Brother"), "Assertion on relationship");
+                Assert.That(tableData.Contains(contactName), "Assertion on Contact Name");
+                Assert.True(tableData.Contains(mobilePhone), "Assertion on home phone");
+                Assert.True(driver.PageSource.Contains(relationship), "Assertion on relationship");
+            });
+
+            string[] records = expectedRecord.Split(";");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(tableData.Contains(records[0]), "Assertion on Contact Name");
+                Assert.True(tableData.Contains(records[1]), "Assertion on home phone");
+                Assert.True(driver.PageSource.Contains(records[2]), "Assertion on relationship");
             });
         }
     }
