@@ -14,19 +14,22 @@ namespace Fujitsu.OrangeAutomation.Utilities
         /// <returns>return object[] </returns>
         public static object[] InvalidCredentialData()
         {
-            object[] data1 = new object[3];
-            data1[0] = "John";
-            data1[1] = "John123";
-            data1[2] = "Invalid credentials";
-
-            object[] data2 = new object[3];
-            data2[0] = "Peter";
-            data2[1] = "Pete123";
-            data2[2] = "Invalid credentials";
-
             object[] main = new object[2];
-            main[0] = data1;
-            main[1] = data2;
+
+
+            object[] set1 = new object[3];
+            set1[0] = "John";
+            set1[1] = "John123";
+            set1[2] = "Invalid credentials";
+
+            main[0] = set1;
+
+            object[] set2 = new object[3];
+            set2[0] = "Peter";
+            set2[1] = "Pete123";
+            set2[2] = "Invalid credentials";
+
+            main[1] = set2;
 
             return main;
         }

@@ -15,7 +15,7 @@ namespace OrangeAutomation.SAMPLE
         [Test]
         public void ExcelRead()
         {
-            using(XLWorkbook book = new XLWorkbook(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx"))
+            using (XLWorkbook book = new XLWorkbook(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx"))
             {
                 var sheet = book.Worksheet("InvalidCredentialTest");
                 var range = sheet.RangeUsed();
@@ -25,10 +25,26 @@ namespace OrangeAutomation.SAMPLE
                 Console.WriteLine(rowCount);
                 Console.WriteLine(columnCount);
 
-                string value = range.Cell(1, 1).GetString();
-                Console.WriteLine(value);
+                //size is based on numbe of test case - (rowcount-1)
+                object[] main = new object[2]; 
+
+                for (int r = 2; r <= 3; r++)
+                {
+                    //size is based on colcount
+                    object[] set = new object[3];
+
+                    for (int c = 1; c <= 3; c++)
+                    {
+                        string value = range.Cell(r, c).GetString();
+                        Console.WriteLine(value);
+                        set[c-1] = value;
+                    }
+                    main[r-2]=set;
+                }
+
+                Console.WriteLine();
             }
-           
+
         }
 
 
