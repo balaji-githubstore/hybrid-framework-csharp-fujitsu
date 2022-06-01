@@ -17,6 +17,10 @@ namespace Fujitsu.OrangeAutomation.Utilities
             object[] main = ExcelUtils.GetSheetIntoObjectArray(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx", "InvalidCredentialTest");
             return main;
         }
+        /// <summary>
+        /// Provide data to the Add Emergency Contact 
+        /// </summary>
+        /// <returns>return object[] </returns>
         public static object[] EmergencyContactData()
         {
             object[] main = ExcelUtils.GetSheetIntoObjectArray(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx", "AddEmergencyContactTest");

@@ -31,8 +31,6 @@ namespace Fujitsu.OrangeAutomation
             Assert.That(actualUrl, Is.EqualTo(expectedUrl));
         }
 
-        
-
         [Test, TestCaseSource(typeof(DataUtils), nameof(DataUtils.InvalidCredentialData))]
          public void InvalidCredentialTest(string username, string password, string expectedError)
         {
@@ -43,8 +41,5 @@ namespace Fujitsu.OrangeAutomation
             string actualError = driver.FindElement(By.Id("spanMessage")).Text;
             Assert.That(actualError, Is.EqualTo(expectedError));
         }
-
-
-
     }
 }
