@@ -79,23 +79,27 @@ namespace Fujitsu.OrangeAutomation.Base
         [TearDown]
         public void EndTest()
         {
-           
-            TestStatus status= TestContext.CurrentContext.Result.Outcome.Status;
 
-            if(status==TestStatus.Passed)
-            {
-                test.Log(Status.Pass, "Test Passed");
-            }
-            else if(status==TestStatus.Failed)
-            {
-                test.Log(Status.Fail, "Test Failed");
-            }
-            else
-            {
-                test.Log(Status.Skip, "Test Skip");
-            }
+            string testName = TestContext.CurrentContext.Test.Name;
 
-            
+            TestStatus status = TestContext.CurrentContext.Result.Outcome.Status;
+
+            if (status == TestStatus.Failed)
+            {
+                var stackTrace = "<pre>" + TestContext.CurrentContext.Result.StackTrace + "</pre>";
+                var errorMessage = TestContext.CurrentContext.Result.Message;
+                
+                test.Log(Status.Fail, stackTrace + errorMessage);
+                
+            }
+            else if (status == TestStatus.Passed)
+            {
+                test.Log(Status.Pass, "Passed - Snapshot below:");
+            }
+            else if (status == TestStatus.Skipped)
+            {
+                test.Log(Status.Skip, "Skipped - " + testName);
+            }
             driver.Quit();
         }
     }
