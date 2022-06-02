@@ -16,13 +16,15 @@ namespace OrangeAutomation.SAMPLE
         [Test]
         public void CreateReport()
         {
+        
             //report config - should run only once 
             ExtentHtmlReporter reporter = new ExtentHtmlReporter(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\Report\index.html");
+     
             ExtentReports extent = new ExtentReports();
             extent.AttachReporter(reporter);
 
             //run before each test method [Setup]
-            var test= extent.CreateTest("TC1");
+            ExtentTest test= extent.CreateTest("TC1");
 
             test.Log(Status.Info, "running tc1");
 
@@ -34,6 +36,8 @@ namespace OrangeAutomation.SAMPLE
 
             //run after each testcase - log current test pass or fail
             test.Log(Status.Fail, "test fail");
+
+            
 
 
             //should run at the end of all test method
@@ -47,6 +51,7 @@ namespace OrangeAutomation.SAMPLE
         [Test]
         public void ExcelRead()
         {
+            
             using (XLWorkbook book = new XLWorkbook(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\orange_data.xlsx"))
             {
                 var sheet = book.Worksheet("InvalidCredentialTest");

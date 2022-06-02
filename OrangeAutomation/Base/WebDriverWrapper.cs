@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
@@ -15,16 +18,40 @@ namespace Fujitsu.OrangeAutomation.Base
     public class WebDriverWrapper
     {
         protected IWebDriver driver;
+        private static ExtentReports extent;
+        protected static ExtentTest test;
 
         //protected IWebDriver Driver
         //{
         //    get { return driver; }
         //}
 
+        [OneTimeSetUp]
+        public void Start()
+        {
+            if(extent ==null)
+            {
+                string path = Directory.GetCurrentDirectory();
+                path = path.Remove(path.IndexOf("bin"))+@"Report\index.html";
+
+                ExtentHtmlReporter reporter = new ExtentHtmlReporter(path);
+                extent = new ExtentReports();
+                extent.AttachReporter(reporter);
+            }
+        }
+
+        [OneTimeTearDown]
+        public void End()
+        {
+            extent.Flush();
+        }
+
         [SetUp]
         public void Init()
         {
-            string browser = "firefox";
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            
+            string browser = "chrome";
 
             switch(browser.ToLower())
             {
@@ -50,8 +77,25 @@ namespace Fujitsu.OrangeAutomation.Base
         }
 
         [TearDown]
-        public void End()
+        public void EndTest()
         {
+           
+            TestStatus status= TestContext.CurrentContext.Result.Outcome.Status;
+
+            if(status==TestStatus.Passed)
+            {
+                test.Log(Status.Pass, "Test Passed");
+            }
+            else if(status==TestStatus.Failed)
+            {
+                test.Log(Status.Fail, "Test Failed");
+            }
+            else
+            {
+                test.Log(Status.Skip, "Test Skip");
+            }
+
+            
             driver.Quit();
         }
     }

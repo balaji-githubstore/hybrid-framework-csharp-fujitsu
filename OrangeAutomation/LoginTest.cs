@@ -1,4 +1,5 @@
-﻿using Fujitsu.OrangeAutomation.Base;
+﻿using AventStack.ExtentReports;
+using Fujitsu.OrangeAutomation.Base;
 using Fujitsu.OrangeAutomation.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -35,10 +36,17 @@ namespace Fujitsu.OrangeAutomation
          public void InvalidCredentialTest(string username, string password, string expectedError)
         {
             driver.FindElement(By.Id("txtUsername")).SendKeys(username);
+            test.Log(Status.Info, "Entered Username as " + username);
+
             driver.FindElement(By.Id("txtPassword")).SendKeys(password);
+            test.Log(Status.Info, "Entered Password as " + password);
+
             driver.FindElement(By.Id("btnLogin")).Click();
+            test.Log(Status.Info, "Clicked On Login");
 
             string actualError = driver.FindElement(By.Id("spanMessage")).Text;
+            test.Log(Status.Info, "Error Message Shown " + actualError);
+
             Assert.That(actualError, Is.EqualTo(expectedError));
         }
     }
