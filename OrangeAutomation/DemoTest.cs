@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using ClosedXML.Excel;
+using Newtonsoft.Json;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,20 @@ namespace OrangeAutomation.SAMPLE
     //demo class - will be deleted //not a part of framework
     internal class DemoTest
     {
+        [Test]
+        public void ReadJson()
+        {
+            StreamReader reader = new StreamReader(@"C:\Selenium Session\OrangeAutomation\OrangeAutomation\TestData\data.json");
+            string text = reader.ReadToEnd();
+            dynamic json = JsonConvert.DeserializeObject(text);
+
+            string value = Convert.ToString(json["url"]);
+
+            Console.WriteLine(value); ;
+
+        }
+
+
         [Test]
         public void CreateReport()
         {

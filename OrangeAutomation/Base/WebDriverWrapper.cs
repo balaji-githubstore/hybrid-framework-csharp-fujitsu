@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using Fujitsu.OrangeAutomation.Utilities;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -17,9 +18,10 @@ namespace Fujitsu.OrangeAutomation.Base
 {
     public class WebDriverWrapper
     {
-        protected IWebDriver driver;
-        private static ExtentReports extent;
-        protected static ExtentTest test;
+        protected IWebDriver? driver;
+        private static ExtentReports? extent;
+        protected static ExtentTest? test;
+        public static String? projectPath;
 
         //protected IWebDriver Driver
         //{
@@ -31,10 +33,10 @@ namespace Fujitsu.OrangeAutomation.Base
         {
             if(extent ==null)
             {
-                string path = Directory.GetCurrentDirectory();
-                path = path.Remove(path.IndexOf("bin"))+@"Report\index.html";
+                projectPath = Directory.GetCurrentDirectory();
+                projectPath = projectPath.Remove(projectPath.IndexOf("bin"));
 
-                ExtentHtmlReporter reporter = new ExtentHtmlReporter(path);
+                ExtentHtmlReporter reporter = new ExtentHtmlReporter(projectPath + @"Report\index.html");
                 extent = new ExtentReports();
                 extent.AttachReporter(reporter);
             }
@@ -50,8 +52,8 @@ namespace Fujitsu.OrangeAutomation.Base
         public void Init()
         {
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-            
-            string browser = "chrome";
+
+            string browser = JsonUtils.GetValue(projectPath + @"TestData\data.json", "browser");
 
             switch(browser.ToLower())
             {
@@ -73,7 +75,7 @@ namespace Fujitsu.OrangeAutomation.Base
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
-            driver.Url = "https://opensource-demo.orangehrmlive.com/";
+            driver.Url = JsonUtils.GetValue(projectPath + @"TestData\data.json", "url");
         }
 
         [TearDown]
