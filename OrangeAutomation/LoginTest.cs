@@ -1,5 +1,5 @@
 ﻿using AventStack.ExtentReports;
-using Fujitsu.OrangeAutomation.Base;
+using Fujitsu.Base;
 using Fujitsu.OrangeAutomation.Utilities;
 using NUnit.Framework;
 using OpenQA.Selenium;

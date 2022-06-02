@@ -1,5 +1,5 @@
-﻿using Fujitsu.OrangeAutomation.Base;
-using Fujitsu.OrangeAutomation.Utilities;
+﻿using Fujitsu.Base;
+using Fujitsu.Utilities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;

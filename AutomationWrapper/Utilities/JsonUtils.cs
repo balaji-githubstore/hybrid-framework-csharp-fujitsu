@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fujitsu.OrangeAutomation.Utilities
+namespace Fujitsu.Utilities
 {
     public class JsonUtils
     {

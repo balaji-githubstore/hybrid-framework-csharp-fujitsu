@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
-using Fujitsu.OrangeAutomation.Utilities;
+using Fujitsu.Utilities;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -14,14 +15,14 @@ using System.Threading.Tasks;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace Fujitsu.OrangeAutomation.Base
+namespace Fujitsu.Base
 {
     public class WebDriverWrapper
     {
-        protected IWebDriver? driver;
-        private static ExtentReports? extent;
-        protected static ExtentTest? test;
-        public static String? projectPath;
+        protected IWebDriver driver;
+        private static ExtentReports extent;
+        protected static ExtentTest test;
+        public static string projectPath;
 
         //protected IWebDriver Driver
         //{
