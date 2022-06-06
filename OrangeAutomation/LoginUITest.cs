@@ -10,7 +10,7 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
 namespace Fujitsu.OrangeAutomation
-{
+{//Jun 6
     public class LoginUITest : WebDriverWrapper
     {
         [Test]
