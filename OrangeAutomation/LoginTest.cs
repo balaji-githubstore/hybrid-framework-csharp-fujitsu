@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using Fujitsu.Base;
 using Fujitsu.OrangeAutomation.Utilities;
+using Fujitsu.OrangeHRMBDD.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -22,29 +23,32 @@ namespace Fujitsu.OrangeAutomation
         [TestCase("Admin", "admin123", "https://opensource-demo.orangehrmlive.com/index.php/dashboard")]
         public void ValidCredentialTest(string username, string password, string expectedUrl)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
-            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
-            driver.FindElement(By.Id("btnLogin")).Click();
+            LoginPage login = new LoginPage(driver);
+            login.EnterUsername(username);
+            login.EnterPassword(password);
+            login.ClickOnLogin();
 
             //wait for page load
+            MainPage main = new MainPage(driver);
+            string actualUrl = main.GetMainPageUrl();
 
-            string actualUrl = driver.Url;
             Assert.That(actualUrl, Is.EqualTo(expectedUrl));
         }
 
         [Test, TestCaseSource(typeof(DataUtils), nameof(DataUtils.InvalidCredentialData))]
          public void InvalidCredentialTest(string username, string password, string expectedError)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
+            LoginPage login = new LoginPage(driver);
+            login.EnterUsername(username);
             test.Log(Status.Info, "Entered Username as " + username);
 
-            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
+            login.EnterPassword(password);
             test.Log(Status.Info, "Entered Password as " + password);
 
-            driver.FindElement(By.Id("btnLogin")).Click();
+            login.ClickOnLogin();
             test.Log(Status.Info, "Clicked On Login");
 
-            string actualError = driver.FindElement(By.Id("spanMessage")).Text;
+            string actualError = login.GetErrorMessage();
             test.Log(Status.Info, "Error Message Shown " + actualError);
 
             Assert.That(actualError, Is.EqualTo(expectedError));

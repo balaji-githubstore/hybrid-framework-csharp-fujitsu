@@ -1,4 +1,5 @@
 ﻿using Fujitsu.Base;
+using Fujitsu.OrangeHRMBDD.Pages;
 using Fujitsu.Utilities;
 using OpenQA.Selenium;
 using System;
@@ -20,9 +21,11 @@ namespace Fujitsu.OrangeAutomation
         
         public void AddEmergencyContactTest(string username,string password,string contactName,string relationship,string homePhone,string mobilePhone,string homeTelephone,string expectedRecord)
         {
-            driver.FindElement(By.Id("txtUsername")).SendKeys(username);
-            driver.FindElement(By.Id("txtPassword")).SendKeys(password);
-            driver.FindElement(By.Id("btnLogin")).Click();
+            LoginPage login = new LoginPage(driver);
+            login.EnterUsername(username);
+            login.EnterPassword(password);
+            login.ClickOnLogin();
+
             driver.FindElement(By.LinkText("My Info")).Click();
             driver.FindElement(By.LinkText("Emergency Contacts")).Click();
             driver.FindElement(By.Id("btnAddContact")).Click();
